@@ -120,3 +120,18 @@ const removeManyPeople = (done) => {
     done(null, response);
   });
 };
+
+// ========================================
+const queryChain = (done) => {
+  const foodToSearch = "burrito";
+
+  Person.find({ favoriteFoods: foodToSearch })
+    .sort({ name: 1 })
+    .limit(2)
+    .select({ age: 0 })
+    .exec((err, data) => {
+      if (err) console.log(err);
+
+      done(null, data);
+    });
+};
