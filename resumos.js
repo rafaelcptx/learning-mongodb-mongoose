@@ -85,3 +85,27 @@ const findEditThenSave = (personId, done) => {
     });
   });
 };
+
+// Função Encontrar UM e Atualizar ============= método .findOneAndUpdate() =================
+const findAndUpdate = (personName, done) => {
+  const ageToSet = 20;
+
+  Person.findOneAndUpdate(
+    { name: personName },
+    { age: ageToSet },
+    { new: true },
+    (err, updated) => {
+      if (err) console.log(err);
+      done(null, updated);
+    }
+  );
+};
+
+// Função para Deletar ============= método .findByIdAndRemove() / .findOneAndRemove() =======
+// método .deleteOne() ============
+const removeById = (personId, done) => {
+  Person.findByIdAndRemove(personId, (err, personRemoved) => {
+    if (err) console.log(err);
+    done(null, personRemoved);
+  });
+};
