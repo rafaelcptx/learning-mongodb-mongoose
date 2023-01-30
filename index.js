@@ -30,18 +30,24 @@ let personSchema = new Schema({
 
 let Person = mongoose.model("Person", personSchema);
 
-const createAndSavePerson = (done) => {
-  let rafaelTeixeira = new Person({
-    name: "Rafael Teixeira",
-    age: 24,
-    favoriteFoods: ["Hamburguer"],
-  });
+let rafaelTeixeira = new Person({
+  name: "Rafael Teixeira",
+  age: 24,
+  favoriteFoods: ["Hamburguer"],
+});
 
-  rafaelTeixeira.save((err, data) => {
+// Função para salvar no cloud mongoDbAtlas.
+const createAndSavePerson = (object, done) => {
+  object.save((err, data) => {
     if (err) console.log(err);
     done(null, data);
   });
 };
+
+createAndSavePerson(rafaelTeixeira, (err, data) => {
+  if (err) console.log(err);
+  else console.log("Dados cadastrados com sucesso.");
+});
 
 arrayOfPeople = [
   { name: "Rafael Teixeira", age: 24, favoriteFoods: ["oldBurger"] },
@@ -64,9 +70,11 @@ const findPeopleByName = (personName, done) => {
   });
 };
 
-findPeopleByName("Rafael Teixeira", (err, data) => {
-  if (err) console.log(err);
-});
+console.log(
+  findPeopleByName("Rafael Teixeira", (err, data) => {
+    if (err) console.log(err);
+  })
+);
 
 const findOneByFood = (food, done) => {
   Person.findOne({ favoriteFoods: food }, (err, founded) => {
