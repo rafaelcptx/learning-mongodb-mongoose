@@ -109,3 +109,14 @@ const removeById = (personId, done) => {
     done(null, personRemoved);
   });
 };
+
+// Função para deletar vários ========== método .remove() =============
+const removeManyPeople = (done) => {
+  const nameToRemove = "Mary";
+
+  Person.remove({ name: nameToRemove }, (err, response) => {
+    if (err) console.log(err);
+
+    done(null, response);
+  });
+};
